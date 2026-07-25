@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 480" font-family="'Segoe UI', 'Noto Sans CJK SC', sans-serif">
+  <defs>
+    <linearGradient id="bgI" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="100%" style="stop-color:#0c4a6e"/>
+    </linearGradient>
+    <filter id="shadowI">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+    <filter id="glowI">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="arrowI" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L9,5 L0,10 z" fill="#0ea5e9"/>
+    </marker>
+  </defs>
+
+  <rect width="1100" height="480" fill="url(#bgI)" rx="16"/>
+
+  <!-- Title -->
+  <text x="550" y="40" text-anchor="middle" fill="#f1f5f9" font-size="24" font-weight="700">Document Ingestion Pipeline</text>
+  <text x="550" y="65" text-anchor="middle" fill="#94a3b8" font-size="13">Multi-format document processing → chunking → embedding → indexing</text>
+
+  <!-- ==================== Input Documents ==================== -->
+  <text x="100" y="105" fill="#94a3b8" font-size="12" font-weight="600" letter-spacing="1">INPUT FILES</text>
+
+  <rect x="50" y="120" width="100" height="45" rx="8" fill="#1e293b" stroke="#ef4444" stroke-width="1.5" filter="url(#shadowI)"/>
+  <text x="100" y="140" text-anchor="middle" fill="#fca5a5" font-size="12" font-weight="600">PDF</text>
+  <text x="100" y="155" text-anchor="middle" fill="#64748b" font-size="9">PyMuPDF</text>
+
+  <rect x="50" y="175" width="100" height="45" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadowI)"/>
+  <text x="100" y="195" text-anchor="middle" fill="#93c5fd" font-size="12" font-weight="600">Markdown</text>
+  <text x="100" y="210" text-anchor="middle" fill="#64748b" font-size="9">markdown lib</text>
+
+  <rect x="50" y="230" width="100" height="45" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5" filter="url(#shadowI)"/>
+  <text x="100" y="250" text-anchor="middle" fill="#6ee7b7" font-size="12" font-weight="600">TXT</text>
+  <text x="100" y="265" text-anchor="middle" fill="#64748b" font-size="9">plaintext</text>
+
+  <rect x="50" y="285" width="100" height="45" rx="8" fill="#1e293b" stroke="#8b5cf6" stroke-width="1.5" filter="url(#shadowI)"/>
+  <text x="100" y="305" text-anchor="middle" fill="#c4b5fd" font-size="12" font-weight="600">DOCX</text>
+  <text x="100" y="320" text-anchor="middle" fill="#64748b" font-size="9">python-docx</text>
+
+  <!-- Arrows to loader -->
+  <line x1="150" y1="142" x2="210" y2="195" stroke="#0ea5e9" stroke-width="1.5" marker-end="url(#arrowI)"/>
+  <line x1="150" y1="197" x2="210" y2="207" stroke="#0ea5e9" stroke-width="1.5" marker-end="url(#arrowI)"/>
+  <line x1="150" y1="252" x2="210" y2="220" stroke="#0ea5e9" stroke-width="1.5" marker-end="url(#arrowI)"/>
+  <line x1="150" y1="307" x2="210" y2="230" stroke="#0ea5e9" stroke-width="1.5" marker-end="url(#arrowI)"/>
+
+  <!-- ==================== Step 1: Loader ==================== -->
+  <rect x="210" y="170" width="180" height="80" rx="12" fill="#1e293b" stroke="#0ea5e9" stroke-width="2" filter="url(#shadowI)"/>
+  <text x="300" y="195" text-anchor="middle" fill="#7dd3fc" font-size="14" font-weight="700">1. Document Loader</text>
+  <text x="300" y="213" text-anchor="middle" fill="#64748b" font-size="11">Auto-detect file type</text>
+  <text x="300" y="228" text-anchor="middle" fill="#64748b" font-size="11">Extract text + metadata</text>
+  <text x="300" y="243" text-anchor="middle" fill="#0ea5e9" font-size="11" font-weight="600">→ RawDocument</text>
+
+  <!-- Arrow -->
+  <line x1="390" y1="210" x2="440" y2="210" stroke="#0ea5e9" stroke-width="2.5" marker-end="url(#arrowI)"/>
+
+  <!-- ==================== Step 2: Chunker ==================== -->
+  <rect x="440" y="160" width="200" height="100" rx="12" fill="#1e293b" stroke="#0ea5e9" stroke-width="2" filter="url(#shadowI)"/>
+  <text x="540" y="185" text-anchor="middle" fill="#7dd3fc" font-size="14" font-weight="700">2. Semantic Chunker</text>
+  <text x="540" y="203" text-anchor="middle" fill="#64748b" font-size="11">Recursive text splitter</text>
+  <text x="540" y="218" text-anchor="middle" fill="#64748b" font-size="11">chunk_size=512, overlap=64</text>
+  <text x="540" y="233" text-anchor="middle" fill="#64748b" font-size="11">Preserve sentence boundaries</text>
+  <text x="540" y="248" text-anchor="middle" fill="#0ea5e9" font-size="11" font-weight="600">→ List[TextChunk]</text>
+
+  <!-- Arrow -->
+  <line x1="640" y1="210" x2="690" y2="210" stroke="#0ea5e9" stroke-width="2.5" marker-end="url(#arrowI)"/>
+
+  <!-- ==================== Step 3: Embedding ==================== -->
+  <rect x="690" y="160" width="200" height="100" rx="12" fill="#1e293b" stroke="#06b6d4" stroke-width="2" filter="url(#glowI)"/>
+  <text x="790" y="185" text-anchor="middle" fill="#67e8f9" font-size="14" font-weight="700">3. Embedding</text>
+  <text x="790" y="203" text-anchor="middle" fill="#64748b" font-size="11">BGE-small-zh-v1.5</text>
+  <text x="790" y="218" text-anchor="middle" fill="#64748b" font-size="11">512-dimensional vectors</text>
+  <text x="790" y="233" text-anchor="middle" fill="#64748b" font-size="11">Batch processing (32)</text>
+  <text x="790" y="248" text-anchor="middle" fill="#06b6d4" font-size="11" font-weight="600">→ List[EmbeddedChunk]</text>
+
+  <!-- Arrow -->
+  <line x1="890" y1="210" x2="940" y2="210" stroke="#0ea5e9" stroke-width="2.5" marker-end="url(#arrowI)"/>
+
+  <!-- ==================== Step 4: Index ==================== -->
+  <rect x="940" y="160" width="130" height="100" rx="12" fill="#1e293b" stroke="#10b981" stroke-width="2" filter="url(#shadowI)"/>
+  <text x="1005" y="185" text-anchor="middle" fill="#6ee7b7" font-size="14" font-weight="700">4. Index</text>
+  <text x="1005" y="203" text-anchor="middle" fill="#64748b" font-size="11">Qdrant upsert</text>
+  <text x="1005" y="218" text-anchor="middle" fill="#64748b" font-size="11">HNSW index</text>
+  <text x="1005" y="233" text-anchor="middle" fill="#64748b" font-size="11">Metadata store</text>
+  <text x="1005" y="248" text-anchor="middle" fill="#10b981" font-size="11" font-weight="600">→ Indexed</text>
+
+  <!-- ==================== Bottom: Metrics ==================== -->
+  <rect x="50" y="360" width="1000" height="100" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="70" y="385" fill="#94a3b8" font-size="12" font-weight="600" letter-spacing="1">INGESTION METRICS (tracked via Prometheus)</text>
+
+  <!-- Metric boxes -->
+  <rect x="70" y="400" width="180" height="45" rx="8" fill="#0f172a" stroke="#0ea5e9" stroke-width="1"/>
+  <text x="160" y="420" text-anchor="middle" fill="#7dd3fc" font-size="16" font-weight="700">12ms</text>
+  <text x="160" y="437" text-anchor="middle" fill="#64748b" font-size="10">per chunk embedding</text>
+
+  <rect x="270" y="400" width="180" height="45" rx="8" fill="#0f172a" stroke="#06b6d4" stroke-width="1"/>
+  <text x="360" y="420" text-anchor="middle" fill="#67e8f9" font-size="16" font-weight="700">~3.2</text>
+  <text x="360" y="437" text-anchor="middle" fill="#64748b" font-size="10">chunks per page (avg)</text>
+
+  <rect x="470" y="400" width="180" height="45" rx="8" fill="#0f172a" stroke="#10b981" stroke-width="1"/>
+  <text x="560" y="420" text-anchor="middle" fill="#6ee7b7" font-size="16" font-weight="700">8ms</text>
+  <text x="560" y="437" text-anchor="middle" fill="#64748b" font-size="10">Qdrant upsert batch</text>
+
+  <rect x="670" y="400" width="180" height="45" rx="8" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+  <text x="760" y="420" text-anchor="middle" fill="#fde68a" font-size="16" font-weight="700">100%</text>
+  <text x="760" y="437" text-anchor="middle" fill="#64748b" font-size="10">dedup on re-ingest</text>
+
+  <rect x="870" y="400" width="160" height="45" rx="8" fill="#0f172a" stroke="#8b5cf6" stroke-width="1"/>
+  <text x="950" y="420" text-anchor="middle" fill="#c4b5fd" font-size="16" font-weight="700">CLI</text>
+  <text x="950" y="437" text-anchor="middle" fill="#64748b" font-size="10">cognita ingest ./docs</text>
+
+  <!-- ==================== Middle: Metadata Flow ==================== -->
+  <rect x="210" y="280" width="860" height="60" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="640" y="305" text-anchor="middle" fill="#94a3b8" font-size="12" font-weight="600">METADATA PROPAGATION</text>
+  <text x="640" y="325" text-anchor="middle" fill="#64748b" font-size="11">source_file · page_number · chunk_index · char_offset · created_at · content_hash → stored in Qdrant payload</text>
+</svg>

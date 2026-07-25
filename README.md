@@ -2,10 +2,13 @@
 
 > Production-grade Retrieval-Augmented Generation Knowledge Agent
 
-[![CI/CD](https://github.com/ZeffyTheCoder/cognita-rag/actions/workflows/ci.yml/badge.svg)](https://github.com/ZeffyTheCoder/cognita-rag/actions/workflows/ci.yml)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+![Banner](docs/images/banner.jpg)
+
+[![CI/CD](https://github.com/Zeffy-Real/idea/actions/workflows/ci.yml/badge.svg)](https://github.com/Zeffy-Real/idea/actions/workflows/ci.yml)
+[![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Code style: Ruff](https://img.shields.io/badge/code%20style-ruff-000000.svg)](https://docs.astral.sh/ruff/)
+[![DeepSeek](https://img.shields.io/badge/LLM-DeepSeek%20v4-7c3aed.svg)](https://api.deepseek.com)
 
 Cognita RAG is a fully-featured, production-ready RAG system that ingests documents, builds a searchable vector index, and answers questions with citation-grounded responses. It is designed for real-world deployment with proper error handling, observability, authentication, rate limiting, and containerization.
 
@@ -31,6 +34,13 @@ Cognita RAG is a fully-featured, production-ready RAG system that ingests docume
 ---
 
 ## Architecture
+
+### System Overview
+
+![System Architecture](docs/images/architecture-overview.svg)
+
+<details>
+<summary>View ASCII architecture diagram</summary>
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
@@ -98,6 +108,20 @@ Cognita RAG is a fully-featured, production-ready RAG system that ingests docume
 │  └──────────────┘  └─────────────────┘  └──────────────────────┘   │
 └─────────────────────────────────────────────────────────────────────┘
 ```
+
+</details>
+
+### RAG Query Processing Flow
+
+![Retrieval Flow](docs/images/retrieval-flow.svg)
+
+### Document Ingestion Pipeline
+
+![Ingestion Pipeline](docs/images/ingestion-pipeline.svg)
+
+### Deployment Architecture
+
+![Deployment Architecture](docs/images/deployment-architecture.svg)
 
 ### Data Flow
 

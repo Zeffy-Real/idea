@@ -1,0 +1,238 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 850" font-family="'Segoe UI', 'Noto Sans CJK SC', sans-serif">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e293b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="clientGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#2563eb;stop-opacity:0.15" />
+    </linearGradient>
+    <linearGradient id="apiGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:0.15" />
+    </linearGradient>
+    <linearGradient id="coreGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#0891b2;stop-opacity:0.15" />
+    </linearGradient>
+    <linearGradient id="dataGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:0.15" />
+    </linearGradient>
+    <linearGradient id="obsGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#d97706;stop-opacity:0.15" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="850" fill="url(#bgGrad)" rx="16"/>
+
+  <!-- Title -->
+  <text x="600" y="45" text-anchor="middle" fill="#f1f5f9" font-size="28" font-weight="700">Cognita RAG Knowledge Agent — System Architecture</text>
+  <text x="600" y="72" text-anchor="middle" fill="#94a3b8" font-size="14">Production-grade Retrieval-Augmented Generation Pipeline</text>
+
+  <!-- ==================== Client Layer ==================== -->
+  <rect x="40" y="100" width="1120" height="110" rx="12" fill="url(#clientGrad)" stroke="#3b82f6" stroke-width="1.5" stroke-opacity="0.5"/>
+  <text x="60" y="125" fill="#60a5fa" font-size="13" font-weight="600" letter-spacing="1">CLIENT LAYER</text>
+
+  <!-- REST API -->
+  <rect x="80" y="140" width="200" height="55" rx="10" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="180" y="165" text-anchor="middle" fill="#93c5fd" font-size="14" font-weight="600">REST API</text>
+  <text x="180" y="183" text-anchor="middle" fill="#64748b" font-size="11">POST /query · GET /health</text>
+
+  <!-- SSE Stream -->
+  <rect x="310" y="140" width="200" height="55" rx="10" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="410" y="165" text-anchor="middle" fill="#93c5fd" font-size="14" font-weight="600">SSE Streaming</text>
+  <text x="410" y="183" text-anchor="middle" fill="#64748b" font-size="11">GET /stream · token-by-token</text>
+
+  <!-- WebSocket -->
+  <rect x="540" y="140" width="200" height="55" rx="10" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="640" y="165" text-anchor="middle" fill="#93c5fd" font-size="14" font-weight="600">WebSocket</text>
+  <text x="640" y="183" text-anchor="middle" fill="#64748b" font-size="11">/chat · bidirectional</text>
+
+  <!-- CLI -->
+  <rect x="770" y="140" width="200" height="55" rx="10" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="870" y="165" text-anchor="middle" fill="#93c5fd" font-size="14" font-weight="600">CLI (Rich TUI)</text>
+  <text x="870" y="183" text-anchor="middle" fill="#64748b" font-size="11">cognita chat · ingest</text>
+
+  <!-- Metrics -->
+  <rect x="1000" y="140" width="140" height="55" rx="10" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="1070" y="165" text-anchor="middle" fill="#fbbf24" font-size="14" font-weight="600">/metrics</text>
+  <text x="1070" y="183" text-anchor="middle" fill="#64748b" font-size="11">Prometheus</text>
+
+  <!-- Arrows from client to API -->
+  <line x1="180" y1="195" x2="180" y2="240" stroke="#475569" stroke-width="2" marker-end="url(#arrowDown)"/>
+  <line x1="410" y1="195" x2="410" y2="240" stroke="#475569" stroke-width="2" marker-end="url(#arrowDown)"/>
+  <line x1="640" y1="195" x2="640" y2="240" stroke="#475569" stroke-width="2" marker-end="url(#arrowDown)"/>
+  <line x1="870" y1="195" x2="870" y2="240" stroke="#475569" stroke-width="2" marker-end="url(#arrowDown)"/>
+
+  <!-- ==================== API Layer ==================== -->
+  <rect x="40" y="240" width="1120" height="120" rx="12" fill="url(#apiGrad)" stroke="#8b5cf6" stroke-width="1.5" stroke-opacity="0.5"/>
+  <text x="60" y="265" fill="#a78bfa" font-size="13" font-weight="600" letter-spacing="1">API LAYER (FastAPI)</text>
+
+  <!-- Auth -->
+  <rect x="80" y="280" width="160" height="60" rx="10" fill="#1e293b" stroke="#8b5cf6" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="160" y="305" text-anchor="middle" fill="#c4b5fd" font-size="13" font-weight="600">API Key Auth</text>
+  <text x="160" y="323" text-anchor="middle" fill="#64748b" font-size="11">Bearer token validation</text>
+
+  <!-- Rate Limiter -->
+  <rect x="270" y="280" width="160" height="60" rx="10" fill="#1e293b" stroke="#8b5cf6" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="350" y="305" text-anchor="middle" fill="#c4b5fd" font-size="13" font-weight="600">Rate Limiter</text>
+  <text x="350" y="323" text-anchor="middle" fill="#64748b" font-size="11">Token bucket / sliding window</text>
+
+  <!-- Request Validator -->
+  <rect x="460" y="280" width="160" height="60" rx="10" fill="#1e293b" stroke="#8b5cf6" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="540" y="305" text-anchor="middle" fill="#c4b5fd" font-size="13" font-weight="600">Pydantic Schemas</text>
+  <text x="540" y="323" text-anchor="middle" fill="#64748b" font-size="11">Request / response models</text>
+
+  <!-- Middleware -->
+  <rect x="650" y="280" width="160" height="60" rx="10" fill="#1e293b" stroke="#8b5cf6" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="730" y="305" text-anchor="middle" fill="#c4b5fd" font-size="13" font-weight="600">Middleware</text>
+  <text x="730" y="323" text-anchor="middle" fill="#64748b" font-size="11">CORS · logging · metrics</text>
+
+  <!-- Error Handler -->
+  <rect x="840" y="280" width="160" height="60" rx="10" fill="#1e293b" stroke="#8b5cf6" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="920" y="305" text-anchor="middle" fill="#c4b5fd" font-size="13" font-weight="600">Error Handler</text>
+  <text x="920" y="323" text-anchor="middle" fill="#64748b" font-size="11">Structured error responses</text>
+
+  <!-- WebSocket Manager -->
+  <rect x="1030" y="280" width="110" height="60" rx="10" fill="#1e293b" stroke="#8b5cf6" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="1085" y="305" text-anchor="middle" fill="#c4b5fd" font-size="13" font-weight="600">WS Manager</text>
+  <text x="1085" y="323" text-anchor="middle" fill="#64748b" font-size="11">Connection pool</text>
+
+  <!-- Arrow to core -->
+  <line x1="600" y1="360" x2="600" y2="400" stroke="#475569" stroke-width="2.5" marker-end="url(#arrowDown)"/>
+
+  <!-- ==================== Core Engine Layer ==================== -->
+  <rect x="40" y="400" width="1120" height="200" rx="12" fill="url(#coreGrad)" stroke="#06b6d4" stroke-width="1.5" stroke-opacity="0.5"/>
+  <text x="60" y="425" fill="#22d3ee" font-size="13" font-weight="600" letter-spacing="1">CORE ENGINE — RAG PIPELINE</text>
+
+  <!-- Query Expander (HyDE) -->
+  <rect x="70" y="440" width="180" height="70" rx="10" fill="#1e293b" stroke="#06b6d4" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="160" y="465" text-anchor="middle" fill="#67e8f9" font-size="13" font-weight="600">Query Expander</text>
+  <text x="160" y="483" text-anchor="middle" fill="#64748b" font-size="11">HyDE · multi-query</text>
+  <text x="160" y="498" text-anchor="middle" fill="#64748b" font-size="11">LLM-generated hypotheses</text>
+
+  <!-- Hybrid Retriever -->
+  <rect x="290" y="440" width="180" height="70" rx="10" fill="#1e293b" stroke="#06b6d4" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="380" y="465" text-anchor="middle" fill="#67e8f9" font-size="13" font-weight="600">Hybrid Retriever</text>
+  <text x="380" y="483" text-anchor="middle" fill="#64748b" font-size="11">Dense (vector) + Sparse (BM25)</text>
+  <text x="380" y="498" text-anchor="middle" fill="#64748b" font-size="11">Reciprocal Rank Fusion</text>
+
+  <!-- Cross-Encoder Reranker -->
+  <rect x="510" y="440" width="180" height="70" rx="10" fill="#1e293b" stroke="#06b6d4" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="600" y="465" text-anchor="middle" fill="#67e8f9" font-size="13" font-weight="600">Cross-Encoder</text>
+  <text x="600" y="483" text-anchor="middle" fill="#67e8f9" font-size="13" font-weight="600">Reranker</text>
+  <text x="600" y="498" text-anchor="middle" fill="#64748b" font-size="11">BGE-reranker-large</text>
+
+  <!-- Context Builder -->
+  <rect x="730" y="440" width="180" height="70" rx="10" fill="#1e293b" stroke="#06b6d4" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="820" y="465" text-anchor="middle" fill="#67e8f9" font-size="13" font-weight="600">Context Builder</text>
+  <text x="820" y="483" text-anchor="middle" fill="#64748b" font-size="11">Window expansion</text>
+  <text x="820" y="498" text-anchor="middle" fill="#64748b" font-size="11">Token budget management</text>
+
+  <!-- Generator (DeepSeek) -->
+  <rect x="950" y="440" width="190" height="70" rx="10" fill="#1e293b" stroke="#f472b6" stroke-width="2" filter="url(#glow)"/>
+  <text x="1045" y="465" text-anchor="middle" fill="#f9a8d4" font-size="13" font-weight="600">DeepSeek LLM</text>
+  <text x="1045" y="483" text-anchor="middle" fill="#64748b" font-size="11">v4-flash (cost-effective)</text>
+  <text x="1045" y="498" text-anchor="middle" fill="#64748b" font-size="11">v4-pro (reasoning)</text>
+
+  <!-- Flow arrows in core -->
+  <line x1="250" y1="475" x2="290" y2="475" stroke="#22d3ee" stroke-width="2" marker-end="url(#arrowCyan)"/>
+  <line x1="470" y1="475" x2="510" y2="475" stroke="#22d3ee" stroke-width="2" marker-end="url(#arrowCyan)"/>
+  <line x1="690" y1="475" x2="730" y2="475" stroke="#22d3ee" stroke-width="2" marker-end="url(#arrowCyan)"/>
+  <line x1="910" y1="475" x2="950" y2="475" stroke="#22d3ee" stroke-width="2" marker-end="url(#arrowCyan)"/>
+
+  <!-- Ingestion Pipeline (bottom of core) -->
+  <rect x="70" y="525" width="420" height="60" rx="10" fill="#1e293b" stroke="#06b6d4" stroke-width="1.5" stroke-dasharray="5,3" filter="url(#shadow)"/>
+  <text x="280" y="550" text-anchor="middle" fill="#67e8f9" font-size="13" font-weight="600">Document Ingestion Pipeline</text>
+  <text x="280" y="568" text-anchor="middle" fill="#64748b" font-size="11">Loaders (PDF/MD/TXT/DOCX) → Semantic Chunker → Embedding (BGE-small-zh) → Vector Index</text>
+
+  <!-- Memory Manager -->
+  <rect x="510" y="525" width="200" height="60" rx="10" fill="#1e293b" stroke="#06b6d4" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="610" y="550" text-anchor="middle" fill="#67e8f9" font-size="13" font-weight="600">Conversation Memory</text>
+  <text x="610" y="568" text-anchor="middle" fill="#64748b" font-size="11">Sliding window · summary compression</text>
+
+  <!-- Citation Tracker -->
+  <rect x="730" y="525" width="200" height="60" rx="10" fill="#1e293b" stroke="#06b6d4" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="830" y="550" text-anchor="middle" fill="#67e8f9" font-size="13" font-weight="600">Citation Tracker</text>
+  <text x="830" y="568" text-anchor="middle" fill="#64748b" font-size="11">Source attribution · confidence scoring</text>
+
+  <!-- ==================== Data Layer ==================== -->
+  <rect x="40" y="620" width="700" height="130" rx="12" fill="url(#dataGrad)" stroke="#10b981" stroke-width="1.5" stroke-opacity="0.5"/>
+  <text x="60" y="645" fill="#34d399" font-size="13" font-weight="600" letter-spacing="1">DATA LAYER</text>
+
+  <!-- Qdrant -->
+  <rect x="70" y="660" width="180" height="70" rx="10" fill="#1e293b" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="160" y="685" text-anchor="middle" fill="#6ee7b7" font-size="14" font-weight="600">Qdrant</text>
+  <text x="160" y="703" text-anchor="middle" fill="#64748b" font-size="11">Vector database</text>
+  <text x="160" y="718" text-anchor="middle" fill="#64748b" font-size="11">HNSW · cosine similarity</text>
+
+  <!-- Document Store -->
+  <rect x="290" y="660" width="180" height="70" rx="10" fill="#1e293b" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="380" y="685" text-anchor="middle" fill="#6ee7b7" font-size="14" font-weight="600">Document Store</text>
+  <text x="380" y="703" text-anchor="middle" fill="#64748b" font-size="11">Metadata + chunks</text>
+  <text x="380" y="718" text-anchor="middle" fill="#64748b" font-size="11">SQLite / filesystem</text>
+
+  <!-- Embedding Cache -->
+  <rect x="510" y="660" width="200" height="70" rx="10" fill="#1e293b" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="610" y="685" text-anchor="middle" fill="#6ee7b7" font-size="14" font-weight="600">Embedding Cache</text>
+  <text x="610" y="703" text-anchor="middle" fill="#64748b" font-size="11">BGE-small-zh-v1.5</text>
+  <text x="610" y="718" text-anchor="middle" fill="#64748b" font-size="11">512-dim · local inference</text>
+
+  <!-- ==================== Observability Layer ==================== -->
+  <rect x="760" y="620" width="400" height="130" rx="12" fill="url(#obsGrad)" stroke="#f59e0b" stroke-width="1.5" stroke-opacity="0.5"/>
+  <text x="780" y="645" fill="#fbbf24" font-size="13" font-weight="600" letter-spacing="1">OBSERVABILITY</text>
+
+  <!-- Structured Logging -->
+  <rect x="780" y="660" width="170" height="70" rx="10" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="865" y="685" text-anchor="middle" fill="#fde68a" font-size="13" font-weight="600">structlog</text>
+  <text x="865" y="703" text-anchor="middle" fill="#64748b" font-size="11">JSON structured logs</text>
+  <text x="865" y="718" text-anchor="middle" fill="#64748b" font-size="11">Request tracing</text>
+
+  <!-- Prometheus -->
+  <rect x="970" y="660" width="170" height="70" rx="10" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="1055" y="685" text-anchor="middle" fill="#fde68a" font-size="13" font-weight="600">Prometheus</text>
+  <text x="1055" y="703" text-anchor="middle" fill="#64748b" font-size="11">Latency · token usage</text>
+  <text x="1055" y="718" text-anchor="middle" fill="#64748b" font-size="11">Retrieval quality metrics</text>
+
+  <!-- ==================== Bottom: Tech Stack ==================== -->
+  <rect x="40" y="770" width="1120" height="60" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="60" y="795" fill="#94a3b8" font-size="12" font-weight="600">TECH STACK:</text>
+  <text x="170" y="795" fill="#cbd5e1" font-size="12">Python 3.12</text>
+  <text x="280" y="795" fill="#cbd5e1" font-size="12">·  FastAPI</text>
+  <text x="370" y="795" fill="#cbd5e1" font-size="12">·  Qdrant</text>
+  <text x="450" y="795" fill="#cbd5e1" font-size="12">·  sentence-transformers</text>
+  <text x="640" y="795" fill="#cbd5e1" font-size="12">·  DeepSeek API</text>
+  <text x="760" y="795" fill="#cbd5e1" font-size="12">·  Docker</text>
+  <text x="840" y="795" fill="#cbd5e1" font-size="12">·  GitHub Actions CI/CD</text>
+  <text x="1010" y="795" fill="#cbd5e1" font-size="12">·  pytest</text>
+
+  <text x="60" y="815" fill="#94a3b8" font-size="12">DEEPSEEK MODELS:</text>
+  <text x="200" y="815" fill="#f9a8d4" font-size="12">deepseek-v4-flash</text>
+  <text x="340" y="815" fill="#64748b" font-size="11">(Input ¥1/1M · Output ¥2/1M — most cost-effective)</text>
+  <text x="620" y="815" fill="#f9a8d4" font-size="12">deepseek-v4-pro</text>
+  <text x="750" y="815" fill="#64748b" font-size="11">(Input ¥3/1M · Output ¥6/1M — complex reasoning)</text>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrowDown" markerWidth="10" markerHeight="10" refX="5" refY="9" orient="auto">
+      <path d="M 0 0 L 5 9 L 10 0 z" fill="#475569"/>
+    </marker>
+    <marker id="arrowCyan" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M 0 0 L 9 5 L 0 10 z" fill="#22d3ee"/>
+    </marker>
+  </defs>
+</svg>

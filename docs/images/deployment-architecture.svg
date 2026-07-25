@@ -1,0 +1,206 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 680" font-family="'Segoe UI', 'Noto Sans CJK SC', sans-serif">
+  <defs>
+    <linearGradient id="bgD" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="100%" style="stop-color:#1e1b4b"/>
+    </linearGradient>
+    <filter id="shadowD">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+    <filter id="glowD">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1100" height="680" fill="url(#bgD)" rx="16"/>
+
+  <!-- Title -->
+  <text x="550" y="40" text-anchor="middle" fill="#f1f5f9" font-size="24" font-weight="700">Deployment Architecture</text>
+  <text x="550" y="65" text-anchor="middle" fill="#94a3b8" font-size="13">Docker Compose orchestration with CI/CD pipeline</text>
+
+  <!-- ==================== Docker Host ==================== -->
+  <rect x="40" y="90" width="1020" height="380" rx="16" fill="#1e293b" stroke="#475569" stroke-width="2" stroke-dasharray="8,4"/>
+  <text x="60" y="115" fill="#94a3b8" font-size="12" font-weight="600" letter-spacing="1">DOCKER HOST (docker-compose.yml)</text>
+
+  <!-- Container: cognita-api -->
+  <rect x="80" y="135" width="280" height="310" rx="12" fill="#0f172a" stroke="#3b82f6" stroke-width="2" filter="url(#shadowD)"/>
+  <rect x="80" y="135" width="280" height="35" rx="12" fill="#3b82f6" fill-opacity="0.2"/>
+  <text x="220" y="158" text-anchor="middle" fill="#93c5fd" font-size="14" font-weight="700">cognita-api</text>
+  <text x="220" y="172" text-anchor="middle" fill="#64748b" font-size="10">FastAPI Application</text>
+
+  <rect x="100" y="185" width="240" height="30" rx="6" fill="#1e293b" stroke="#334155"/>
+  <text x="220" y="205" text-anchor="middle" fill="#cbd5e1" font-size="11">Uvicorn · 4 workers · :8000</text>
+
+  <rect x="100" y="225" width="240" height="30" rx="6" fill="#1e293b" stroke="#334155"/>
+  <text x="220" y="245" text-anchor="middle" fill="#cbd5e1" font-size="11">API Key Auth · Rate Limiting</text>
+
+  <rect x="100" y="265" width="240" height="30" rx="6" fill="#1e293b" stroke="#334155"/>
+  <text x="220" y="285" text-anchor="middle" fill="#cbd5e1" font-size="11">RAG Pipeline (in-process)</text>
+
+  <rect x="100" y="305" width="240" height="30" rx="6" fill="#1e293b" stroke="#334155"/>
+  <text x="220" y="325" text-anchor="middle" fill="#cbd5e1" font-size="11">sentence-transformers (BGE)</text>
+
+  <rect x="100" y="345" width="240" height="30" rx="6" fill="#1e293b" stroke="#334155"/>
+  <text x="220" y="365" text-anchor="middle" fill="#cbd5e1" font-size="11">structlog · Prometheus client</text>
+
+  <rect x="100" y="385" width="240" height="45" rx="6" fill="#1e293b" stroke="#334155"/>
+  <text x="220" y="405" text-anchor="middle" fill="#64748b" font-size="10">Health: /health</text>
+  <text x="220" y="420" text-anchor="middle" fill="#64748b" font-size="10">Metrics: /metrics</text>
+
+  <!-- Container: qdrant -->
+  <rect x="400" y="135" width="240" height="200" rx="12" fill="#0f172a" stroke="#10b981" stroke-width="2" filter="url(#shadowD)"/>
+  <rect x="400" y="135" width="240" height="35" rx="12" fill="#10b981" fill-opacity="0.2"/>
+  <text x="520" y="158" text-anchor="middle" fill="#6ee7b7" font-size="14" font-weight="700">qdrant</text>
+  <text x="520" y="172" text-anchor="middle" fill="#64748b" font-size="10">Vector Database</text>
+
+  <rect x="420" y="185" width="200" height="30" rx="6" fill="#1e293b" stroke="#334155"/>
+  <text x="520" y="205" text-anchor="middle" fill="#cbd5e1" font-size="11">HNSW index · :6333</text>
+
+  <rect x="420" y="225" width="200" height="30" rx="6" fill="#1e293b" stroke="#334155"/>
+  <text x="520" y="245" text-anchor="middle" fill="#cbd5e1" font-size="11">Collection: cognita_vectors</text>
+
+  <rect x="420" y="265" width="200" height="30" rx="6" fill="#1e293b" stroke="#334155"/>
+  <text x="520" y="285" text-anchor="middle" fill="#cbd5e1" font-size="11">512-dim · cosine similarity</text>
+
+  <rect x="420" y="305" width="200" height="20" rx="6" fill="#1e293b" stroke="#334155"/>
+  <text x="520" y="320" text-anchor="middle" fill="#64748b" font-size="10">Volume: qdrant_data</text>
+
+  <!-- Container: prometheus -->
+  <rect x="400" y="355" width="240" height="90" rx="12" fill="#0f172a" stroke="#f59e0b" stroke-width="2" filter="url(#shadowD)"/>
+  <rect x="400" y="355" width="240" height="35" rx="12" fill="#f59e0b" fill-opacity="0.2"/>
+  <text x="520" y="378" text-anchor="middle" fill="#fde68a" font-size="14" font-weight="700">prometheus</text>
+  <text x="520" y="392" text-anchor="middle" fill="#64748b" font-size="10">Metrics Collection</text>
+
+  <rect x="420" y="400" width="200" height="30" rx="6" fill="#1e293b" stroke="#334155"/>
+  <text x="520" y="420" text-anchor="middle" fill="#cbd5e1" font-size="11">Scrape :8000/metrics · :9090</text>
+
+  <!-- Container: grafana -->
+  <rect x="680" y="135" width="240" height="200" rx="12" fill="#0f172a" stroke="#fb923c" stroke-width="2" filter="url(#shadowD)"/>
+  <rect x="680" y="135" width="240" height="35" rx="12" fill="#fb923c" fill-opacity="0.2"/>
+  <text x="800" y="158" text-anchor="middle" fill="#fdba74" font-size="14" font-weight="700">grafana</text>
+  <text x="800" y="172" text-anchor="middle" fill="#64748b" font-size="10">Visualization Dashboard</text>
+
+  <rect x="700" y="185" width="200" height="30" rx="6" fill="#1e293b" stroke="#334155"/>
+  <text x="800" y="205" text-anchor="middle" fill="#cbd5e1" font-size="11">Dashboards · :3000</text>
+
+  <rect x="700" y="225" width="200" height="30" rx="6" fill="#1e293b" stroke="#334155"/>
+  <text x="800" y="245" text-anchor="middle" fill="#cbd5e1" font-size="11">Latency · throughput panels</text>
+
+  <rect x="700" y="265" width="200" height="30" rx="6" fill="#1e293b" stroke="#334155"/>
+  <text x="800" y="285" text-anchor="middle" fill="#cbd5e1" font-size="11">Token usage · error rates</text>
+
+  <rect x="700" y="305" width="200" height="20" rx="6" fill="#1e293b" stroke="#334155"/>
+  <text x="800" y="320" text-anchor="middle" fill="#64748b" font-size="10">Data source: Prometheus</text>
+
+  <!-- DeepSeek Cloud -->
+  <rect x="680" y="355" width="240" height="90" rx="12" fill="#0f172a" stroke="#f472b6" stroke-width="2.5" stroke-dasharray="5,3" filter="url(#glowD)"/>
+  <rect x="680" y="355" width="240" height="35" rx="12" fill="#f472b6" fill-opacity="0.2"/>
+  <text x="800" y="378" text-anchor="middle" fill="#f9a8d4" font-size="14" font-weight="700">DeepSeek Cloud API</text>
+  <text x="800" y="392" text-anchor="middle" fill="#64748b" font-size="10">External LLM Service</text>
+
+  <rect x="700" y="400" width="200" height="30" rx="6" fill="#1e293b" stroke="#334155"/>
+  <text x="800" y="420" text-anchor="middle" fill="#cbd5e1" font-size="11">api.deepseek.com · HTTPS</text>
+
+  <!-- Volumes -->
+  <rect x="940" y="135" width="100" height="310" rx="8" fill="#1e293b" stroke="#64748b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="990" y="155" text-anchor="middle" fill="#94a3b8" font-size="11" font-weight="600">VOLUMES</text>
+  <rect x="955" y="170" width="70" height="50" rx="6" fill="#334155"/>
+  <text x="990" y="195" text-anchor="middle" fill="#cbd5e1" font-size="10">qdrant</text>
+  <text x="990" y="210" text-anchor="middle" fill="#64748b" font-size="9">_data</text>
+  <rect x="955" y="235" width="70" height="50" rx="6" fill="#334155"/>
+  <text x="990" y="260" text-anchor="middle" fill="#cbd5e1" font-size="10">models</text>
+  <text x="990" y="275" text-anchor="middle" fill="#64748b" font-size="9">cache</text>
+  <rect x="955" y="300" width="70" height="50" rx="6" fill="#334155"/>
+  <text x="990" y="325" text-anchor="middle" fill="#cbd5e1" font-size="10">documents</text>
+  <text x="990" y="340" text-anchor="middle" fill="#64748b" font-size="9">/docs</text>
+
+  <!-- Network arrows -->
+  <line x1="360" y1="230" x2="400" y2="230" stroke="#10b981" stroke-width="2" marker-end="url(#arrowDG)"/>
+  <line x1="360" y1="370" x2="400" y2="370" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrowDY)"/>
+  <line x1="640" y1="200" x2="680" y2="200" stroke="#fb923c" stroke-width="2" marker-end="url(#arrowDO)"/>
+  <line x1="360" y1="400" x2="680" y2="400" stroke="#f472b6" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrowDP)"/>
+
+  <!-- ==================== CI/CD Pipeline ==================== -->
+  <rect x="40" y="490" width="1020" height="170" rx="12" fill="#1e293b" stroke="#8b5cf6" stroke-width="1.5"/>
+  <text x="60" y="515" fill="#a78bfa" font-size="12" font-weight="600" letter-spacing="1">CI/CD PIPELINE (GitHub Actions)</text>
+
+  <!-- Step 1: Push -->
+  <rect x="70" y="530" width="130" height="50" rx="10" fill="#0f172a" stroke="#8b5cf6" stroke-width="1.5" filter="url(#shadowD)"/>
+  <text x="135" y="555" text-anchor="middle" fill="#c4b5fd" font-size="12" font-weight="600">git push</text>
+  <text x="135" y="572" text-anchor="middle" fill="#64748b" font-size="10">main branch</text>
+
+  <line x1="200" y1="555" x2="235" y2="555" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arrowDV)"/>
+
+  <!-- Step 2: Lint -->
+  <rect x="235" y="530" width="130" height="50" rx="10" fill="#0f172a" stroke="#8b5cf6" stroke-width="1.5" filter="url(#shadowD)"/>
+  <text x="300" y="555" text-anchor="middle" fill="#c4b5fd" font-size="12" font-weight="600">Lint &amp; Type Check</text>
+  <text x="300" y="572" text-anchor="middle" fill="#64748b" font-size="10">ruff · mypy</text>
+
+  <line x1="365" y1="555" x2="400" y2="555" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arrowDV)"/>
+
+  <!-- Step 3: Test -->
+  <rect x="400" y="530" width="130" height="50" rx="10" fill="#0f172a" stroke="#8b5cf6" stroke-width="1.5" filter="url(#shadowD)"/>
+  <text x="465" y="555" text-anchor="middle" fill="#c4b5fd" font-size="12" font-weight="600">Unit Tests</text>
+  <text x="465" y="572" text-anchor="middle" fill="#64748b" font-size="10">pytest · coverage</text>
+
+  <line x1="530" y1="555" x2="565" y2="555" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arrowDV)"/>
+
+  <!-- Step 4: Integration -->
+  <rect x="565" y="530" width="130" height="50" rx="10" fill="#0f172a" stroke="#8b5cf6" stroke-width="1.5" filter="url(#shadowD)"/>
+  <text x="630" y="555" text-anchor="middle" fill="#c4b5fd" font-size="12" font-weight="600">Integration</text>
+  <text x="630" y="572" text-anchor="middle" fill="#64748b" font-size="10">API · vectorstore</text>
+
+  <line x1="695" y1="555" x2="730" y2="555" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arrowDV)"/>
+
+  <!-- Step 5: Docker Build -->
+  <rect x="730" y="530" width="130" height="50" rx="10" fill="#0f172a" stroke="#8b5cf6" stroke-width="1.5" filter="url(#shadowD)"/>
+  <text x="795" y="555" text-anchor="middle" fill="#c4b5fd" font-size="12" font-weight="600">Docker Build</text>
+  <text x="795" y="572" text-anchor="middle" fill="#64748b" font-size="10">multi-stage</text>
+
+  <line x1="860" y1="555" x2="895" y2="555" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arrowDV)"/>
+
+  <!-- Step 6: Deploy -->
+  <rect x="895" y="530" width="130" height="50" rx="10" fill="#0f172a" stroke="#10b981" stroke-width="2" filter="url(#glowD)"/>
+  <text x="960" y="555" text-anchor="middle" fill="#6ee7b7" font-size="12" font-weight="600">Deploy</text>
+  <text x="960" y="572" text-anchor="middle" fill="#64748b" font-size="10">GHCR · tag release</text>
+
+  <!-- CI/CD Info -->
+  <rect x="70" y="600" width="960" height="45" rx="8" fill="#0f172a" stroke="#334155"/>
+  <text x="90" y="620" fill="#94a3b8" font-size="11" font-weight="600">TRIGGERS:</text>
+  <text x="170" y="620" fill="#cbd5e1" font-size="11">push to main</text>
+  <text x="280" y="620" fill="#64748b" font-size="11">·</text>
+  <text x="295" y="620" fill="#cbd5e1" font-size="11">pull request</text>
+  <text x="390" y="620" fill="#64748b" font-size="11">·</text>
+  <text x="405" y="620" fill="#cbd5e1" font-size="11">manual dispatch</text>
+  <text x="530" y="620" fill="#64748b" font-size="11">|</text>
+  <text x="550" y="620" fill="#94a3b8" font-size="11" font-weight="600">PYTHON:</text>
+  <text x="620" y="620" fill="#cbd5e1" font-size="11">3.12</text>
+  <text x="660" y="620" fill="#64748b" font-size="11">|</text>
+  <text x="680" y="620" fill="#94a3b8" font-size="11" font-weight="600">CACHE:</text>
+  <text x="730" y="620" fill="#cbd5e1" font-size="11">pip · Docker layers</text>
+  <text x="90" y="638" fill="#94a3b8" font-size="11" font-weight="600">SECRETS:</text>
+  <text x="160" y="638" fill="#cbd5e1" font-size="11">DEEPSEEK_API_KEY</text>
+  <text x="310" y="638" fill="#64748b" font-size="11">·</text>
+  <text x="325" y="638" fill="#cbd5e1" font-size="11">DOCKER_USERNAME</text>
+  <text x="465" y="638" fill="#64748b" font-size="11">·</text>
+  <text x="480" y="638" fill="#cbd5e1" font-size="11">DOCKER_PASSWORD</text>
+
+  <defs>
+    <marker id="arrowDG" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L7,4 L0,8 z" fill="#10b981"/>
+    </marker>
+    <marker id="arrowDY" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L7,4 L0,8 z" fill="#f59e0b"/>
+    </marker>
+    <marker id="arrowDO" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L7,4 L0,8 z" fill="#fb923c"/>
+    </marker>
+    <marker id="arrowDP" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L7,4 L0,8 z" fill="#f472b6"/>
+    </marker>
+    <marker id="arrowDV" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L7,4 L0,8 z" fill="#8b5cf6"/>
+    </marker>
+  </defs>
+</svg>

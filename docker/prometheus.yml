@@ -1,0 +1,20 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  # Cognita RAG API metrics
+  - job_name: "cognita"
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["cognita:8000"]
+        labels:
+          service: "cognita-rag"
+
+  # Qdrant metrics (if enabled)
+  - job_name: "qdrant"
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["qdrant:6333"]
+        labels:
+          service: "qdrant"

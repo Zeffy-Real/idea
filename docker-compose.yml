@@ -1,0 +1,86 @@
+# =============================================================================
+# Cognita RAG - Docker Compose
+# One-command deployment: docker-compose up -d
+# =============================================================================
+
+version: "3.9"
+
+services:
+  # ---------------------------------------------------------------------------
+  # Qdrant Vector Database
+  # ---------------------------------------------------------------------------
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: cognita-qdrant
+    restart: unless-stopped
+    ports:
+      - "6333:6333"   # REST API
+      - "6334:6334"   # gRPC
+    volumes:
+      # Store data on D drive (not C drive) per user requirement
+      - ./data/qdrant/storage:/qdrant/storage
+      - ./data/qdrant/snapshots:/qdrant/snapshots
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6333/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - cognita-network
+
+  # ---------------------------------------------------------------------------
+  # Cognita RAG API
+  # ---------------------------------------------------------------------------
+  cognita:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cognita-api
+    restart: unless-stopped
+    ports:
+      - "${API_PORT:-8000}:8000"
+    env_file:
+      - .env
+    environment:
+      - VECTOR_STORE_TYPE=qdrant
+      - QDRANT_URL=http://qdrant:6333
+      - EMBEDDING_DEVICE=cpu
+      - ENVIRONMENT=production
+    volumes:
+      # Persist model cache and data on D drive
+      - ./data/models:/app/data/models
+      - ./documents:/app/documents:ro
+    depends_on:
+      qdrant:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    networks:
+      - cognita-network
+
+  # ---------------------------------------------------------------------------
+  # Prometheus (Metrics Collection) - Optional
+  # ---------------------------------------------------------------------------
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: cognita-prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./docker/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./data/prometheus:/prometheus
+    profiles:
+      - monitoring
+    networks:
+      - cognita-network
+
+networks:
+  cognita-network:
+    driver: bridge
+    name: cognita-network
